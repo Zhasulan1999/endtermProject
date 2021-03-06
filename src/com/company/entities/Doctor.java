@@ -9,6 +9,10 @@ public class Doctor {
     private String speciality ;
     private boolean available ;
 
+    public Doctor(){
+
+    }
+
     public Doctor(int doc_id, String name, String surname, boolean gender, String speciality, boolean available) {
       setDoc_id(doc_id);
       setName(name);
@@ -17,6 +21,16 @@ public class Doctor {
       setSpeciality(speciality);
       setAvailable(available);
     }
+
+    public Doctor(String name, String surname, boolean gender, String speciality, boolean available) {
+        setName(name);
+        setSurname(surname);
+        setGender(gender);
+        setSpeciality(speciality);
+        setAvailable(available);
+    }
+
+
 
 
     public int getDoc_id() {

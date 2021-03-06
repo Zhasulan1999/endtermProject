@@ -49,20 +49,25 @@ public class DoctorRepository implements IDoctorRepository {
     }
 
     @Override
-    public String getDoctorByName(String name, String surname, String speciality) {
+    public Doctor getDoctor(int doc_id) {
         Connection con = null;
         try {
             con = db.getConnection();
-            String sql = "SELECT speciality FROM doctor WHERE name=?";
+            String sql = "SELECT doc_id,name,surname,gender,speciality,available FROM doctor WHERE doc_id=?";
             PreparedStatement st = con.prepareStatement(sql);
 
-            st.setString(1, name);
+            st.setInt(1,doc_id);
 
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                name = rs.getString("name");
+                Doctor doctor = new Doctor(rs.getInt("doc_id"),
+                        rs.getString("name"),
+                        rs.getString("surname"),
+                        rs.getBoolean("gender"),
+                        rs.getString("speciality"),
+                        rs.getBoolean("available"));
 
-                return name;
+                return doctor;
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -79,20 +84,25 @@ public class DoctorRepository implements IDoctorRepository {
     }
 
     @Override
-    public boolean isAvailable(boolean available) {
+    public Doctor isAvailable(boolean available) {
         Connection con = null;
         try {
             con = db.getConnection();
             String sql = "SELECT name,surname,gender,speciality FROM doctor WHERE available=?";
             PreparedStatement st = con.prepareStatement(sql);
 
-            st.setBoolean(5 , available);
+            st.setBoolean(1,available);
 
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                available = rs.getBoolean("available");
+                Doctor doctor = new Doctor(rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("surname"),
+                        rs.getBoolean("gender"),
+                        rs.getString("speciality"),
+                        rs.getBoolean("available"));
 
-                return available;
+                return doctor;
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -105,7 +115,7 @@ public class DoctorRepository implements IDoctorRepository {
                 throwables.printStackTrace();
             }
         }
-        return false;
+        return null;
     }
 
     @Override

@@ -3,9 +3,7 @@ package com.company.controllers;
 import java.util.List;
 
 import com.company.entities.Doctor;
-import com.company.entities.Patient;
 import com.company.repositories.interfaces.IDoctorRepository;
-import com.company.repositories.interfaces.IPatientRepository;
 
 
 public class DoctorController {
@@ -15,16 +13,15 @@ public class DoctorController {
         this.repo = repo;
     }
 
-    public String createDoctor(String name, String surname,  String gender ,String occupancy,int experience , int salary) {
+    public String createDoctor(String name, String surname,  String gender ,String speciality,boolean available ) {
         boolean male = (gender.toLowerCase().equals("male"));
-        Employee employee = new Employee(name, surname,email , male ,  occupancy ,experience ,salary );
-        boolean created = repo.createEmployee(employee);
-
-        return (created ? "Employee was created!" : "Employee creation was failed!");
+        Doctor doctor = new Doctor(name, surname, male , speciality ,available );
+        boolean created = repo.createDoctor(doctor);
+        return (created ? "Doctor was created!" : "Doctor creation was failed!");
     }
 
-    public Doctor getDoctorByName(String name) {
-        Doctor doctor = repo.getDoctorByName(name);
+    public Doctor getDoctor(int doc_id) {
+        Doctor doctor = repo.getDoctor(doc_id);
         return doctor;
     }
     /*
@@ -32,21 +29,17 @@ public class DoctorController {
   */
     public String getAllDoctors() {
         List<Doctor> Doctors = repo.getAllDoctors();
-
         return Doctors.toString();
     }
     /*
 Is used for searching salary of employee by id
   */
 
-    public boolean isAvailable(boolean available) {
+    public String isAvailable(boolean available) {
 
-        int salary = repo.isAvailable(available);
-        return (salary == -1 ? "Salary by id was not found!" : String.valueOf(salary));
-
+        Doctor doctor = repo.isAvailable(available) ;
+        return (doctor == null ? "Available doctor was not found!" : doctor.toString());
     }
-    /*
-    Is used for searching occupancy of employee by id
-      */
+
 
 }

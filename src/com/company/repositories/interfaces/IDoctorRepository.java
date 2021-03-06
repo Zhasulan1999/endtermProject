@@ -7,8 +7,8 @@ import java.util.List;
 public interface IDoctorRepository {
 
     boolean createDoctor(Doctor doctor) ;
-    String getDoctorByName(String name , String surname , String speciality) ;
-    boolean isAvailable (boolean available);
+    Doctor getDoctor(int doc_id) ;
+    Doctor isAvailable (boolean available);
     List<Doctor> getAllDoctors();
 
 }
