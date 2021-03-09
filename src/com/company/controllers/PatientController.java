@@ -13,18 +13,19 @@ public class PatientController {
         this.repo = repo;
     }
 
-    public String createPatient(String name) {
-        Patient Patient = new Patient(name);
+    public String createPatient(String name , String surname, String gender, String illness, boolean preference) {
+        boolean male = (gender.toLowerCase().equals("male"));
+        Patient Patient = new Patient(name, surname, male, illness, preference);
 
         boolean created = repo.createPatient(Patient);
 
         return (created ? "Patient was created!" : "Patient creation was failed!");
     }
 
-    public String getPatient(int id) {
+    public Patient getPatient(int id) {
         Patient Patient = repo.getPatientById(id);
-
-        return (Patient == null ? "Patient was not found!" : Patient.toString());
+        return Patient;
+      //  return (Patient == null ? "Patient was not found!" : Patient.toString());
     }
 
     public String getAllPatients() {
