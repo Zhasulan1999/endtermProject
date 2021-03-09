@@ -20,7 +20,7 @@ public class DoctorRepository implements IDoctorRepository {
         Connection con = null;
         try {
             con = db.getConnection();
-            String sql = "INSERT INTO Employee(name,surname,gender,speciality,available) VALUES (?,?,?,?,?)";
+            String sql = "INSERT INTO doctor(name,surname,gender,speciality,available) VALUES (?,?,?,?,?)";
             PreparedStatement st = con.prepareStatement(sql);
  /*
     some sql prepared statements to deal with database , like insert into table
@@ -31,8 +31,8 @@ public class DoctorRepository implements IDoctorRepository {
             st.setString(4,doctor.getSpeciality());
             st.setBoolean(5,doctor.isAvailable());
 
-            boolean executed = st.execute();
-            return executed;
+            int executed = st.executeUpdate();
+            return executed == 1;
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -95,8 +95,7 @@ public class DoctorRepository implements IDoctorRepository {
 
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                Doctor doctor = new Doctor(rs.getInt("id"),
-                        rs.getString("name"),
+                Doctor doctor = new Doctor(rs.getString("name"),
                         rs.getString("surname"),
                         rs.getBoolean("gender"),
                         rs.getString("speciality"),
@@ -123,7 +122,7 @@ public class DoctorRepository implements IDoctorRepository {
         Connection con = null;
         try {
             con = db.getConnection();
-            String sql = "SELECT id,name,surname,email,gender,occupancy,experience,salary FROM Employee";
+            String sql = "SELECT doc_id,name,surname, gender, speciality,available FROM doctor";
             Statement st = con.createStatement();
 
             ResultSet rs = st.executeQuery(sql);

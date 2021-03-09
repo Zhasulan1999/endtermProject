@@ -93,7 +93,7 @@ public class Doctor {
                 ", gender=" + gender +
                 ", speciality='" + speciality + '\'' +
                 ", available=" + available +
-                '}';
+                '}' + '\n';
     }
 
 }
