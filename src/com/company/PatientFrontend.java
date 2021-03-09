@@ -14,7 +14,7 @@ public class PatientFrontend {
     private final Scanner scanner;
 
     public PatientFrontend(IPatientRepository repo, IDoctorRepository doc_repo ){
-        this.doc_controller = new DoctorController(doc_repo);
+        this.doc_controller = new DoctorController(doc_repo, appointmentRepository);
         this.controller=new PatientController(repo) ;
         this.scanner=new Scanner(System.in) ;
     }
@@ -28,7 +28,7 @@ public class PatientFrontend {
             System.out.println("1. Get all patients");
             System.out.println("2. Find patient by id");
             System.out.println("3. Insert new patient");
-           System.out.println("4. Find available doctors(without patients)");
+            System.out.println("4. Find available doctors(without patients)");
             System.out.println("0. Exit");
             System.out.println();
             try {

@@ -2,16 +2,19 @@ package com.company;
 
 import com.company.controllers.DoctorController;
 import com.company.entities.Doctor;
+import com.company.repositories.interfaces.IAppointmentRepository;
 import com.company.repositories.interfaces.IDoctorRepository;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class DoctorFrontend {
     private final DoctorController controller;
     private final Scanner scanner;
 
-    public DoctorFrontend(IDoctorRepository repo){
-        this.controller=new DoctorController(repo) ;
+
+    public DoctorFrontend(IDoctorRepository repo , IAppointmentRepository appointmentRepository){
+        this.controller=new DoctorController(repo , appointmentRepository) ;
         this.scanner=new Scanner(System.in) ;
     }
 
@@ -24,6 +27,7 @@ public class DoctorFrontend {
             System.out.println("2. Find doctor by id");
             System.out.println("3. Insert new doctor");
             System.out.println("4. Find available doctors(without patients)");
+            System.out.println("5. Make an appointment");
             System.out.println("0. Exit");
             System.out.println();
             try {
@@ -38,7 +42,11 @@ public class DoctorFrontend {
                 } else if (option == 4) {
                     isAvailableMenu() ;
                 } else {
-                    break;
+                    if (option != 5) {
+                        return;
+                    }
+
+                    this.makeAppointmentMenu();
                 }
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -49,6 +57,8 @@ public class DoctorFrontend {
 
         }
     }
+
+
 
     public void getAllDoctorsMenu() {
         String response = controller.getAllDoctors();
@@ -88,6 +98,48 @@ public class DoctorFrontend {
         String doctor = controller.isAvailable(available);
         String response = (doctor == null ? "Doctor was not found!" : "" + doctor.toString());
         System.out.println(response);
+    }
+
+    private void makeAppointmentMenu() {
+        ArrayList appointments = new ArrayList();
+        while(true) {
+            System.out.println();
+            System.out.println("You entered menu to make an appointment!");
+            System.out.println("Select option:");
+            System.out.println("1. Zhasik");
+            System.out.println("2. Zhasik");
+            System.out.println("3. Zhasik");
+            System.out.println("4. Zhasik");
+            System.out.println("0. Finish");
+            System.out.println();
+
+            try {
+                System.out.print("Enter option (1-3): ");
+                int option = this.scanner.nextInt();
+                if (option == 1) {
+                    //Zhasik
+                } else if (option == 2) {
+                    return;
+                    // Zhasik
+                } else if (option == 3) {
+                    return;
+                  // Zhasik
+                } else {
+                    if (option != 4) {
+                        return;
+                      //Zhasik
+                    }
+
+                    return;
+                }
+
+            } catch (Exception var3) {
+                System.out.println(var3.getMessage());
+                this.scanner.next();
+            }
+
+            System.out.println("*************************");
+        }
     }
 
 
