@@ -50,7 +50,7 @@ public class PatientRepository implements IPatientRepository {
         Connection con = null;
         try {
             con = db.getConnection();
-            String sql = "SELECT id, name, surname, illness FROM Patient WHERE id=?";
+            String sql = "SELECT pat_id, name, surname, illness FROM Patient WHERE pat_id=?";
             PreparedStatement st = con.prepareStatement(sql);
 
             st.setInt(1, id);
@@ -83,13 +83,13 @@ public class PatientRepository implements IPatientRepository {
         Connection con = null;
         try {
             con = db.getConnection();
-            String sql = "SELECT id,name,surname FROM Patient";
+            String sql = "SELECT pat_id,name,surname FROM Patient";
             Statement st = con.createStatement();
 
             ResultSet rs = st.executeQuery(sql);
             List<Patient> patients = new ArrayList<>();
             while (rs.next()) {
-                Patient patient = new Patient(rs.getInt("id"),
+                Patient patient = new Patient(rs.getInt("pat_id"),
                         rs.getString("name"),
                         rs.getString("surname"));
 
