@@ -1,16 +1,20 @@
 package com.company;
 
+import com.company.controllers.DoctorController;
 import com.company.controllers.PatientController;
 import com.company.entities.Patient;
+import com.company.repositories.interfaces.IDoctorRepository;
 import com.company.repositories.interfaces.IPatientRepository;
 
 import java.util.Scanner;
 
 public class PatientFrontend {
+    private DoctorController doc_controller;
     private final PatientController controller;
     private final Scanner scanner;
 
-    public PatientFrontend(IPatientRepository repo){
+    public PatientFrontend(IPatientRepository repo, IDoctorRepository doc_repo ){
+        this.doc_controller = new DoctorController(doc_repo);
         this.controller=new PatientController(repo) ;
         this.scanner=new Scanner(System.in) ;
     }
@@ -23,7 +27,7 @@ public class PatientFrontend {
             System.out.println("1. Get all patients");
             System.out.println("2. Find patient by id");
             System.out.println("3. Insert new patient");
-        //    System.out.println("4. Find available doctors(without patients)");
+           System.out.println("4. Find available doctors(without patients)");
             System.out.println("0. Exit");
             System.out.println();
             try {
@@ -35,8 +39,8 @@ public class PatientFrontend {
                     getPatientByIdMenu();
                 } else if (option == 3) {
                     createPatientMenu();
-//                } else if (option == 4) {
-//                    isAvailableMenu() ;
+                } else if (option == 4) {
+                    isAvailableMenu() ;
                 } else {
                     break;
                 }
@@ -79,6 +83,16 @@ public class PatientFrontend {
         String response = controller.createPatient(name, surname, gender , illness ,preference);
         System.out.println(response);
     }
+    public void isAvailableMenu() {
+        System.out.println("Please enter availability");
+
+        boolean available = scanner.nextBoolean();
+
+        String doctor = doc_controller.isAvailable(available);
+        String response = (doctor == null ? "Doctor was not found!" : "" + doctor.toString());
+        System.out.println(response);
+    }
+
 
 
 
