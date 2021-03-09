@@ -70,7 +70,7 @@ public class DoctorFrontend {
         System.out.println("Please enter surname");
         String surname = scanner.next();
         System.out.println("Please enter gender (male/female)");
-        String gender = scanner.next();
+        boolean gender = scanner.nextBoolean();
         System.out.println("Please enter specialty of doctor(branch)");
         String speciality = scanner.next();
         System.out.println("Please enter is doctor free of patient (0-if yes , 1-if no)");
@@ -86,7 +86,7 @@ public class DoctorFrontend {
         boolean available = scanner.nextBoolean();
 
         String doctor = controller.isAvailable(available);
-        String response = (doctor == null ? "Train was not found!" : "" + doctor.toString());
+        String response = (doctor == null ? "Doctor was not found!" : "" + doctor.toString());
         System.out.println(response);
     }
 

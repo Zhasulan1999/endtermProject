@@ -13,9 +13,8 @@ public class DoctorController {
         this.repo = repo;
     }
 
-    public String createDoctor(String name, String surname,  String gender ,String speciality,boolean available ) {
-        boolean male = (gender.toLowerCase().equals("male"));
-        Doctor doctor = new Doctor(name, surname, male , speciality ,available );
+    public String createDoctor(String name, String surname,  boolean gender ,String speciality,boolean available ) {
+        Doctor doctor = new Doctor(name, surname, gender , speciality ,available );
         boolean created = repo.createDoctor(doctor);
         return (created ? "Doctor was created!" : "Doctor creation was failed!");
     }
