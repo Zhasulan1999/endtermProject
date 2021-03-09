@@ -32,9 +32,7 @@ public class Patient {
             setSurname(surname);
         }
 
-    public Patient(String name) {
-            setName(name);
-    }
+
 
 
     public int getPat_id() {
@@ -84,5 +82,17 @@ public class Patient {
         public void setPreference(boolean preference) {
             this.preference = preference;
         }
+
+    @Override
+    public String toString() {
+        return "Patient{" +
+                "pat_id=" + pat_id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", gender=" + gender +
+                ", illness='" + illness + '\'' +
+                ", preference=" + preference +
+                '}';
     }
+}
 
