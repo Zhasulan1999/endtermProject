@@ -20,7 +20,7 @@ public class DoctorRepository implements IDoctorRepository {
         Connection con = null;
         try {
             con = db.getConnection();
-            String sql = "INSERT INTO Employee(name,surname,gender,speciality,available) VALUES (?,?,?,?,?)";
+            String sql = "INSERT INTO doctor(name,surname,gender,speciality,available) VALUES (?,?,?,?,?)";
             PreparedStatement st = con.prepareStatement(sql);
  /*
     some sql prepared statements to deal with database , like insert into table
