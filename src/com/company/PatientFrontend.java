@@ -19,6 +19,7 @@ public class PatientFrontend {
         this.scanner=new Scanner(System.in) ;
     }
 
+
     public void start() {
         while (true) {
             System.out.println();
