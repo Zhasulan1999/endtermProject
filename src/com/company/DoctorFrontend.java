@@ -16,7 +16,8 @@ public class DoctorFrontend {
     private final Scanner scanner;
 
 
-    public DoctorFrontend(IDoctorRepository repo , IAppointmentRepository appointmentRepository){
+    public DoctorFrontend(IAppointmentRepository repoappController, IDoctorRepository repo , IAppointmentRepository appointmentRepository){
+        this.appController = new AppointmentController(repoappController);
         this.controller=new DoctorController(repo , appointmentRepository) ;
         this.scanner=new Scanner(System.in) ;
     }

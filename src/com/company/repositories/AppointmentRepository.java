@@ -19,19 +19,19 @@ public class AppointmentRepository implements IAppointmentRepository {
         Connection con = null;
         try {
             con = db.getConnection();
-            String sql = "INSERT INTO Appointment(doc_id,pat_id,date,room,bill) VALUES (?,?,?,?,?)";
+            String sql = "INSERT INTO appointment(doc_id,pat_id,room,bill,date) VALUES (?,?,?,?,?)";
             PreparedStatement st = con.prepareStatement(sql);
  /*
     some sql prepared statements to deal with database , like insert into table
       */
             st.setInt(1, appointment.getDoc_id());
             st.setInt(2, appointment.getPat_id());
-            st.setString(3, appointment.getDate());
+            st.setString(5, appointment.getDate());
             st.setInt(4, appointment.getRoom());
-            st.setInt(5, appointment.getBill());
+            st.setInt(3, appointment.getBill());
 
-            boolean executed = st.execute();
-            return executed;
+            int executed = st.executeUpdate();
+            return executed == 1;
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
