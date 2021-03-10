@@ -33,9 +33,7 @@ public class DoctorController {
         List<Doctor> Doctors = repo.getAllDoctors();
         return Doctors.toString();
     }
-    /*
-Is used for searching salary of employee by id
-  */
+
 
     public String isAvailable(boolean available) {
 
