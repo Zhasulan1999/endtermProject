@@ -50,7 +50,10 @@ public class PatientFrontend {
                     createPatientMenu();
                 } else if (option == 4) {
                     isAvailableMenu();
-                } else {
+                } else if (option == 5) {
+                    GetTotalCostMenu();
+                }
+                else {
                     break;
                 }
             } catch (Exception e) {
@@ -103,6 +106,23 @@ public class PatientFrontend {
         System.out.println(response);
     }
 
+    public void GetTotalCostMenu() {
+        System.out.println("Please, enter your id");
+        int pat_id = scanner.nextInt();
+
+        Appointment appointment = new Appointment(pat_id);
+        if (appointment.getPat_id() == pat_id) {
+            int totalCost = 0;
+            totalCost += appointment.getBill();
+            System.out.println(totalCost);
+
+        } else {
+            System.out.println("No");
+        }
+    }
+
+
+    }
 //    public void GetCost() throws NoSuchFieldException {
 //        System.out.println("Please, enter your id");
 //        int pat_id = scanner.nextInt();//1
@@ -129,7 +149,7 @@ public class PatientFrontend {
 //    }
 
 
-    }
+
 
 
 
