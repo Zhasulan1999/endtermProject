@@ -8,6 +8,13 @@ public class Appointment {
     private int room;
     private int bill;
 
+    public Appointment(int doc_id, int pat_id, String date, int room, int bill) {
+        this.doc_id = doc_id;
+        this.pat_id = pat_id;
+        this.date = date;
+        this.room = room;
+        this.bill = bill;
+    }
     public Appointment(int app_id, int doc_id, int pat_id, String date, int room, int bill) {
         this.app_id = app_id;
         this.doc_id = doc_id;
@@ -20,6 +27,10 @@ public class Appointment {
     public Appointment(int doc_id, int pat_id){
         this.doc_id=doc_id;
         this.pat_id=pat_id;
+    }
+
+    public Appointment(String date){
+        this.date=date;
     }
 
     public int getApp_id() {

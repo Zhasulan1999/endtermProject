@@ -2,6 +2,8 @@ package com.company;
 
 import com.company.controllers.DoctorController;
 import com.company.entities.Doctor;
+import com.company.entities.Appointment;
+import com.company.controllers.AppointmentController;
 import com.company.repositories.interfaces.IAppointmentRepository;
 import com.company.repositories.interfaces.IDoctorRepository;
 
@@ -9,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class DoctorFrontend {
+    private AppointmentController appController;
     private final DoctorController controller;
     private final Scanner scanner;
 
@@ -40,8 +43,8 @@ public class DoctorFrontend {
                 } else if (option == 3) {
                     createDoctorMenu();
                 } else if (option == 4) {
-                    isAvailableMenu() ;
-                } else {
+                    isAvailableMenu();
+                }else {
                     if (option != 5) {
                         return;
                     }
@@ -106,31 +109,33 @@ public class DoctorFrontend {
             System.out.println();
             System.out.println("You entered menu to make an appointment!");
             System.out.println("Select option:");
-            System.out.println("1. Zhasik");
-            System.out.println("2. Zhasik");
-            System.out.println("3. Zhasik");
-            System.out.println("4. Zhasik");
+            System.out.println("1. Get all appointments");
+            System.out.println("2. Get appointment by id");
+            System.out.println("3. Insert an appointment");
+            System.out.println("4. Get appointment by date");
             System.out.println("0. Finish");
             System.out.println();
 
             try {
-                System.out.print("Enter option (1-3): ");
+                System.out.print("Enter option (1-4): ");
                 int option = this.scanner.nextInt();
                 if (option == 1) {
+                    getAllAppointments();
                     //Zhasik
                 } else if (option == 2) {
-                    return;
+                    getAppointmentById();
                     // Zhasik
                 } else if (option == 3) {
-                    return;
+                    createAppointment();
                   // Zhasik
-                } else {
-                    if (option != 4) {
-                        return;
+                } else if(option == 4) {
+                        getAppointmentByDate();
                       //Zhasik
                     }
-
-                    return;
+                else{
+                    if(option!=4) {
+                        return;
+                    }
                 }
 
             } catch (Exception var3) {
@@ -142,6 +147,40 @@ public class DoctorFrontend {
         }
     }
 
+    private void getAppointmentByDate() {
+        System.out.println("Enter any date in a format dd/mm/yyyy");
+
+    }
+
+    private void createAppointment() {
+        System.out.println("Enter id of a doctor");
+        int doc_id = scanner.nextInt();
+        System.out.println("Enter id of a patient");
+        int pat_id = scanner.nextInt();
+        System.out.println("Please enter the date (dd/mm/yyyy)");
+        String date = scanner.next();
+        System.out.println("Please enter room number");
+        int room = scanner.nextInt();
+        System.out.println("Please enter bill for an appointment");
+        int bill = scanner.nextInt();
+
+        String response = appController.createAppointment(doc_id, pat_id, date, room, bill);
+        System.out.println(response);
+    }
+
+    private void getAppointmentById() {
+        System.out.println("Please enter id of an appointment");
+
+        int app_id = scanner.nextInt();
+        Appointment appointment= appController.getAppointment(app_id);
+        String response = (appointment == null ? "Doctor was not found!" : appointment.toString());
+        System.out.println(response);
+    }
+
+    private void getAllAppointments() {
+        String response = appController.getAllAppointments();
+        System.out.println(response);
+    }
 
 
 }

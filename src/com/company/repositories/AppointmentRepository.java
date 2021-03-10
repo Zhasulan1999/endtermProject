@@ -2,6 +2,7 @@ package com.company.repositories;
 
 import com.company.data.interfaces.IDB;
 import com.company.entities.Appointment;
+import com.company.entities.Doctor;
 import com.company.repositories.interfaces.IAppointmentRepository;
 
 import java.sql.*;
@@ -44,6 +45,41 @@ public class AppointmentRepository implements IAppointmentRepository {
             }
         }
         return false;
+    }
+
+    @Override
+    public Appointment getAppointmentById(int app_id) {
+        Connection con = null;
+        try {
+            con = db.getConnection();
+            String sql = "SELECT doc_id,name,surname,gender,speciality,available FROM doctor WHERE doc_id=?";
+            PreparedStatement st = con.prepareStatement(sql);
+
+            st.setInt(1,app_id);
+
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                Appointment appointment = new Appointment(rs.getInt("app_id"),
+                        rs.getInt("doc_id"),
+                        rs.getInt("pat_id"),
+                        rs.getString("date"),
+                        rs.getInt("room"),
+                        rs.getInt("bill"));
+
+                return appointment;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+        return null;
     }
 
     @Override
