@@ -3,6 +3,7 @@ package com.company;
 import com.company.data.PostgresDB;
 import com.company.data.interfaces.IDB;
 import com.company.repositories.AppointmentRepository;
+import com.company.repositories.DoctorRepository;
 import com.company.repositories.PatientRepository;
 import com.company.repositories.interfaces.IAppointmentRepository;
 import com.company.repositories.interfaces.IDoctorRepository;
@@ -21,7 +22,10 @@ public class Main {
          */
         IDB db = new PostgresDB() ;
         IPatientRepository patientRepository = new PatientRepository(db);
-        PatientFrontend app = new PatientFrontend(patientRepository);
+        IAppointmentRepository appRepository = new AppointmentRepository(db);
+        IDoctorRepository doctorRepository = new DoctorRepository(db);
+
+        PatientFrontend app = new PatientFrontend(patientRepository, doctorRepository , appRepository);
         app.start();
     }
 }

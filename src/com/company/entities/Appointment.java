@@ -22,6 +22,10 @@ public class Appointment {
         this.pat_id=pat_id;
     }
 
+    public Appointment() {
+
+    }
+
     public int getApp_id() {
         return app_id;
     }

@@ -32,4 +32,10 @@ public class AppointmentController {
         return appointments.toString();
     }
 
+//    public String getBillForPatient(int pat_id){
+//        Appointment appointment = new Appointment(pat_id);
+//
+//        return (appointment == null ? "Appointment was not found!" : appointment.toString());
+//    }
+
 }
