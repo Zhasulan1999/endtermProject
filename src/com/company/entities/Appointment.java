@@ -28,7 +28,9 @@ public class Appointment {
         this.doc_id=doc_id;
         this.pat_id=pat_id;
     }
-
+    public Appointment(int pat_id) {
+        this.pat_id = pat_id;
+    }
     public Appointment(String date){
         this.date=date;
     }

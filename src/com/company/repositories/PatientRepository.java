@@ -44,6 +44,37 @@ public class PatientRepository implements IPatientRepository {
         }
         return false;
     }
+    public Patient GetTotalCost(int id){
+        Connection con = null;
+        try {
+            con = db.getConnection();
+            String sql = "SELECT pat_id, name, surname, illness FROM patient WHERE pat_id=?";
+            PreparedStatement st = con.prepareStatement(sql);
+
+            st.setInt(1, id);
+
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                Patient patient = new Patient(rs.getInt("pat_id"),
+                        rs.getString("name"),
+                        rs.getString("surname"),
+                        rs.getString("illness"));
+
+                return patient;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+        return null;
+    }
 
     @Override
     public Patient getPatientById(int id) {

@@ -34,6 +34,13 @@ public class Patient {
 
 
 
+    public boolean equals(Object obj ){
+            Appointment appointment = (Appointment) obj;
+            appointment.getPat_id();
+            return this.pat_id == appointment.getPat_id();
+        }
+
+
 
     public int getPat_id() {
             return pat_id;
