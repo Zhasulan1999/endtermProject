@@ -14,6 +14,15 @@ public class DoctorFrontend {
     private AppointmentController appController;
     private final DoctorController controller;
     private final Scanner scanner;
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_BLACK = "\u001B[30m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_BLUE = "\u001B[34m";
+    public static final String ANSI_PURPLE = "\u001B[35m";
+    public static final String ANSI_CYAN = "\u001B[36m";
+    public static final String ANSI_WHITE = "\u001B[37m";
 
 
     public DoctorFrontend(IAppointmentRepository repoappController, IDoctorRepository repo , IAppointmentRepository appointmentRepository){
@@ -21,8 +30,38 @@ public class DoctorFrontend {
         this.controller=new DoctorController(repo , appointmentRepository) ;
         this.scanner=new Scanner(System.in) ;
     }
+    public void start(){
+        System.out.println(ANSI_GREEN+"Welcome to E-Healthcare system , user " );
+        System.out.println("Select option:");
+        System.out.println(ANSI_BLUE+"1. Register"+ANSI_RESET);
+        System.out.println("2. Login");
+        System.out.println("3. Exit"+ANSI_RESET);
+        try {
+            System.out.print("Enter option (1-3): ");
+            int option = scanner.nextInt();
+            if (option == 1) {
+                getAllDoctorsMenu();;
+            } else if (option == 2) {
+                getDoctorByIdMenu();
+            } else if (option == 3) {
+                return;
+            } else if (option == 4) {
+                isAvailableMenu();
+            }else {
+                if (option != 5) {
+                    return;
+                }
 
-    public void start() {
+                this.makeAppointmentMenu();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            scanner.next(); // to ignore incorrect input
+        }
+
+    }
+
+    public void MainMenu() {
         while (true) {
             System.out.println();
             System.out.println("Welcome to E-Healthcare system , user ");
