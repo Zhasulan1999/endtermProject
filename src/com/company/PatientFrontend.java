@@ -22,7 +22,7 @@ public class PatientFrontend {
 
         this.app_controller = new AppointmentController(app_repo);
         this.controller = new PatientController(repo);
-//        this.doc_controller = new DoctorController(doc_repo);
+        this.doc_controller = new DoctorController(doc_repo, app_repo);
         this.scanner = new Scanner(System.in);
     }
 
@@ -50,8 +50,6 @@ public class PatientFrontend {
                     createPatientMenu();
                 } else if (option == 4) {
                     isAvailableMenu();
-                } else if (option == 5) {
-                    GetTotalCostMenu();
                 }
                 else {
                     break;
@@ -89,7 +87,7 @@ public class PatientFrontend {
         boolean gender = scanner.nextBoolean();
         System.out.println("Please enter illness of patient");
         String illness = scanner.next();
-        System.out.println("Please enter your preference (0-if man , 1-if woman)");
+        System.out.println("Please enter your preference (true-if man , false-if woman)");
         boolean preference = scanner.nextBoolean();
 
         String response = controller.createPatient(name, surname, gender, illness, preference);
@@ -106,48 +104,12 @@ public class PatientFrontend {
         System.out.println(response);
     }
 
-    public void GetTotalCostMenu() {
-        System.out.println("Please, enter your id");
-        int pat_id = scanner.nextInt();
 
-        Appointment appointment = new Appointment(pat_id);
-        if (appointment.getPat_id() == pat_id) {
-            int totalCost = 0;
-            totalCost += appointment.getBill();
-            System.out.println(totalCost);
 
-        } else {
-            System.out.println("No");
-        }
-    }
 
 
     }
-//    public void GetCost() throws NoSuchFieldException {
-//        System.out.println("Please, enter your id");
-//        int pat_id = scanner.nextInt();//1
 //
-//        Field[] appointments = Appointment.class.getDeclaredFields();
-//        Field fieldObj = Appointment.class.getDeclaredField("pat_id");
-//
-//        for (int i = 0; i < appointments.length; i++) {
-////             isEquals = appointments[i].equals(fieldObj);
-//            if (pat_id == getClass(Appointment.class.getDeclaredField("pat_id"))) {
-//                System.out.println("equal");
-//            } else {
-//                System.out.println("not equal");
-//            }
-//        }
-//        Patient patient = controller.getPatient(pat_id);
-//        int totalCost = 0;
-//      //  for(app_controller.getBillForPatient(controller.getPatient(pat_id)==pat_id);
-//        Appointment app = new Appointment();
-//
-//       if(pat_id.equals(get))
-//        if(pat_id = app.getPat_id(pat_id));
-//        totalCost += app.getBill();
-//    }
-
 
 
 

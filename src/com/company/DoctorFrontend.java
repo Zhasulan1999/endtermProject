@@ -25,56 +25,28 @@ public class DoctorFrontend {
     public static final String ANSI_WHITE = "\u001B[37m";
 
 
-    public DoctorFrontend(IAppointmentRepository repoappController, IDoctorRepository repo , IAppointmentRepository appointmentRepository){
+    public DoctorFrontend(IAppointmentRepository repoappController, IDoctorRepository repo, IAppointmentRepository appointmentRepository){
         this.appController = new AppointmentController(repoappController);
         this.controller=new DoctorController(repo , appointmentRepository) ;
         this.scanner=new Scanner(System.in) ;
     }
-    public void start(){
-        System.out.println(ANSI_GREEN+"Welcome to E-Healthcare system , user " );
-        System.out.println("Select option:");
-        System.out.println(ANSI_BLUE+"1. Register"+ANSI_RESET);
-        System.out.println("2. Login");
-        System.out.println("3. Exit"+ANSI_RESET);
-        try {
-            System.out.print("Enter option (1-3): ");
-            int option = scanner.nextInt();
-            if (option == 1) {
-                getAllDoctorsMenu();;
-            } else if (option == 2) {
-                getDoctorByIdMenu();
-            } else if (option == 3) {
-                return;
-            } else if (option == 4) {
-                isAvailableMenu();
-            }else {
-                if (option != 5) {
-                    return;
-                }
 
-                this.makeAppointmentMenu();
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            scanner.next(); // to ignore incorrect input
-        }
 
-    }
-
-    public void MainMenu() {
+    public void start() {
         while (true) {
             System.out.println();
-            System.out.println("Welcome to E-Healthcare system , user ");
+            System.out.println(ANSI_GREEN+"Welcome to E-Healthcare system-administration , doctor " + ANSI_RESET);
             System.out.println("Select option:");
-            System.out.println("1. Get all doctors");
+            System.out.println(ANSI_BLUE+"1. Get all doctors");
             System.out.println("2. Find doctor by id");
             System.out.println("3. Insert new doctor");
             System.out.println("4. Find available doctors(without patients)");
-            System.out.println("5. Make an appointment");
-            System.out.println("0. Exit");
+            System.out.println("5. Make an appointment"+ANSI_RESET);
+
+            System.out.println(ANSI_RED+"0. Exit"+ANSI_RED);
             System.out.println();
             try {
-                System.out.print("Enter option (1-4): ");
+                System.out.print(ANSI_WHITE+"Enter option (1-5): " +ANSI_RESET);
                 int option = scanner.nextInt();
                 if (option == 1) {
                     getAllDoctorsMenu();;
@@ -109,24 +81,24 @@ public class DoctorFrontend {
     }
 
     public void getDoctorByIdMenu() {
-        System.out.println("Please enter id");
+        System.out.println(ANSI_WHITE+"Please enter id"+ANSI_RESET);
 
         int id = scanner.nextInt();
         Doctor doctor = controller.getDoctor(id);
-        String response = (doctor == null ? "Doctor was not found!" : doctor.toString());
+        String response = (doctor == null ? ANSI_RED+"Doctor was not found!" + ANSI_RESET: ANSI_GREEN+doctor.toString()) +ANSI_RESET;
         System.out.println(response);
     }
 
     public void createDoctorMenu() {
-        System.out.println("Enter name of Doctor");
+        System.out.println(ANSI_GREEN+ "Enter name of Doctor");
         String name = scanner.next();
         System.out.println("Please enter surname");
         String surname = scanner.next();
-        System.out.println("Please enter gender (male/female)");
+        System.out.println("Please enter gender (type true if men , type false if women)");
         boolean gender = scanner.nextBoolean();
         System.out.println("Please enter specialty of doctor(branch)");
         String speciality = scanner.next();
-        System.out.println("Please enter is doctor free of patient (0-if yes , 1-if no)");
+        System.out.println("Please enter is doctor free of patient (true-if yes , false-if no)" + ANSI_RESET);
         boolean available = scanner.nextBoolean();
 
         String response = controller.createDoctor(name, surname, gender , speciality ,available);
@@ -147,12 +119,14 @@ public class DoctorFrontend {
         ArrayList appointments = new ArrayList();
         while(true) {
             System.out.println();
-            System.out.println("You entered menu to make an appointment!");
+            System.out.println(ANSI_GREEN+"You entered menu to make an appointment!"+ANSI_RESET);
             System.out.println("Select option:");
             System.out.println("1. Get all appointments");
             System.out.println("2. Get appointment by id");
             System.out.println("3. Insert an appointment");
-            System.out.println("4. Get appointment by date");
+            System.out.println("4. Back");
+
+
             System.out.println("0. Finish");
             System.out.println();
 
@@ -168,10 +142,10 @@ public class DoctorFrontend {
                 } else if (option == 3) {
                     createAppointment();
                   // Zhasik
-                } else if(option == 4) {
-                        getAppointmentByDate();
-                      //Zhasik
-                    }
+                } else if (option == 4) {
+                    return;
+                    // Zhasik
+                }
                 else{
                     if(option!=4) {
                         return;

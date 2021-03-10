@@ -12,16 +12,18 @@ import com.company.repositories.interfaces.IPatientRepository;
 public class Main {
 
     public static void main(String[] args) {
-	// write your code here
+        /**
+         * Application for Doctors
+         */
 //        IDB db = new PostgresDB() ;
 //        IDoctorRepository doctorRepository = new DoctorRepository(db);
 //        IAppointmentRepository appointmentRepository = new AppointmentRepository(db);
-//        DoctorFrontend app = new DoctorFrontend(appointmentRepository, doctorRepository, appointmentRepository);
-//
+//        IPatientRepository patientRepository=new PatientRepository(db) ;
+//        DoctorFrontend app = new DoctorFrontend(appointmentRepository, doctorRepository, appointmentRepository );
 //        app.start();
         /**
          * Application for Patients
-         */
+//         */
         IDB db = new PostgresDB() ;
         IPatientRepository patientRepository = new PatientRepository(db);
         IAppointmentRepository appRepository = new AppointmentRepository(db);

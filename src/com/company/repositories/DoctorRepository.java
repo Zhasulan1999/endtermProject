@@ -88,7 +88,7 @@ public class DoctorRepository implements IDoctorRepository {
         Connection con = null;
         try {
             con = db.getConnection();
-            String sql = "SELECT name,surname,gender,speciality FROM doctor WHERE available=?";
+            String sql = "SELECT name,surname,gender,speciality,available FROM doctor WHERE available=?";
             PreparedStatement st = con.prepareStatement(sql);
 
             st.setBoolean(1,available);
