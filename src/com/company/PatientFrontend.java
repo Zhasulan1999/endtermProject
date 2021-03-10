@@ -19,9 +19,10 @@ public class PatientFrontend {
     private final Scanner scanner;
 
     public PatientFrontend(IPatientRepository repo, IDoctorRepository doc_repo, IAppointmentRepository app_repo) {
-        this.doc_controller = new DoctorController(doc_repo);
+
         this.app_controller = new AppointmentController(app_repo);
         this.controller = new PatientController(repo);
+//        this.doc_controller = new DoctorController(doc_repo);
         this.scanner = new Scanner(System.in);
     }
 
