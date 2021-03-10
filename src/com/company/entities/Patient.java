@@ -92,7 +92,7 @@ public class Patient {
                 ", gender=" + gender +
                 ", illness='" + illness + '\'' +
                 ", preference=" + preference +
-                '}';
+                '}' + '\n';
     }
 }
 

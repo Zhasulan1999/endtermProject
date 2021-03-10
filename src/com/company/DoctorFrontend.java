@@ -173,7 +173,7 @@ public class DoctorFrontend {
 
         int app_id = scanner.nextInt();
         Appointment appointment= appController.getAppointment(app_id);
-        String response = (appointment == null ? "Doctor was not found!" : appointment.toString());
+        String response = (appointment == null ? "Appointment was not found!" : appointment.toString());
         System.out.println(response);
     }
 

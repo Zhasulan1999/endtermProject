@@ -13,9 +13,8 @@ public class PatientController {
         this.repo = repo;
     }
 
-    public String createPatient(String name , String surname, String gender, String illness, boolean preference) {
-        boolean male = (gender.toLowerCase().equals("male"));
-        Patient Patient = new Patient(name, surname, male, illness, preference);
+    public String createPatient(String name , String surname, boolean gender, String illness, boolean preference) {
+        Patient Patient = new Patient(name, surname, gender, illness, preference);
 
         boolean created = repo.createPatient(Patient);
 

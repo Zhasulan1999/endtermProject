@@ -15,7 +15,9 @@ public class Main {
 	// write your code here
 //        IDB db = new PostgresDB() ;
 //        IDoctorRepository doctorRepository = new DoctorRepository(db);
-//        DoctorFrontend app = new DoctorFrontend(doctorRepository);
+//        IAppointmentRepository appointmentRepository = new AppointmentRepository(db);
+//        DoctorFrontend app = new DoctorFrontend(doctorRepository, appointmentRepository);
+//
 //        app.start();
         /**
          * Application for Patients

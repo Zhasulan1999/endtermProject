@@ -20,7 +20,7 @@ public class PatientRepository implements IPatientRepository {
         Connection con = null;
         try {
             con = db.getConnection();
-            String sql = "INSERT INTO Patient(name, surname,gender, illness, preference) VALUES (?,?,?)";
+            String sql = "INSERT INTO patient(name, surname,gender, illness, preference) VALUES (?,?,?,?,?)";
             PreparedStatement st = con.prepareStatement(sql);
 
             st.setString(1, patient.getName());
@@ -29,8 +29,8 @@ public class PatientRepository implements IPatientRepository {
             st.setString(4, patient.getIllness());
             st.setBoolean(5, patient.isPreference());
 
-            boolean executed = st.execute();
-            return executed;
+            int executed = st.executeUpdate();
+            return executed == 1;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -50,14 +50,14 @@ public class PatientRepository implements IPatientRepository {
         Connection con = null;
         try {
             con = db.getConnection();
-            String sql = "SELECT pat_id, name, surname, illness FROM Patient WHERE pat_id=?";
+            String sql = "SELECT pat_id, name, surname, illness FROM patient WHERE pat_id=?";
             PreparedStatement st = con.prepareStatement(sql);
 
             st.setInt(1, id);
 
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                Patient patient = new Patient(rs.getInt("id"),
+                Patient patient = new Patient(rs.getInt("pat_id"),
                         rs.getString("name"),
                         rs.getString("surname"),
                         rs.getString("illness"));
