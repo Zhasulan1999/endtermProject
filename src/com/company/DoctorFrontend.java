@@ -2,16 +2,22 @@ package com.company;
 
 import com.company.controllers.DoctorController;
 import com.company.entities.Doctor;
+import com.company.entities.Appointment;
+import com.company.controllers.AppointmentController;
+import com.company.repositories.interfaces.IAppointmentRepository;
 import com.company.repositories.interfaces.IDoctorRepository;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class DoctorFrontend {
+    private AppointmentController appController;
     private final DoctorController controller;
     private final Scanner scanner;
 
-    public DoctorFrontend(IDoctorRepository repo){
-        this.controller=new DoctorController(repo) ;
+
+    public DoctorFrontend(IDoctorRepository repo , IAppointmentRepository appointmentRepository){
+        this.controller=new DoctorController(repo , appointmentRepository) ;
         this.scanner=new Scanner(System.in) ;
     }
 
@@ -24,6 +30,7 @@ public class DoctorFrontend {
             System.out.println("2. Find doctor by id");
             System.out.println("3. Insert new doctor");
             System.out.println("4. Find available doctors(without patients)");
+            System.out.println("5. Make an appointment");
             System.out.println("0. Exit");
             System.out.println();
             try {
@@ -36,9 +43,13 @@ public class DoctorFrontend {
                 } else if (option == 3) {
                     createDoctorMenu();
                 } else if (option == 4) {
-                    isAvailableMenu() ;
-                } else {
-                    break;
+                    isAvailableMenu();
+                }else {
+                    if (option != 5) {
+                        return;
+                    }
+
+                    this.makeAppointmentMenu();
                 }
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -49,6 +60,8 @@ public class DoctorFrontend {
 
         }
     }
+
+
 
     public void getAllDoctorsMenu() {
         String response = controller.getAllDoctors();
@@ -90,6 +103,84 @@ public class DoctorFrontend {
         System.out.println(response);
     }
 
+    private void makeAppointmentMenu() {
+        ArrayList appointments = new ArrayList();
+        while(true) {
+            System.out.println();
+            System.out.println("You entered menu to make an appointment!");
+            System.out.println("Select option:");
+            System.out.println("1. Get all appointments");
+            System.out.println("2. Get appointment by id");
+            System.out.println("3. Insert an appointment");
+            System.out.println("4. Get appointment by date");
+            System.out.println("0. Finish");
+            System.out.println();
+
+            try {
+                System.out.print("Enter option (1-4): ");
+                int option = this.scanner.nextInt();
+                if (option == 1) {
+                    getAllAppointments();
+                    //Zhasik
+                } else if (option == 2) {
+                    getAppointmentById();
+                    // Zhasik
+                } else if (option == 3) {
+                    createAppointment();
+                  // Zhasik
+                } else if(option == 4) {
+                        getAppointmentByDate();
+                      //Zhasik
+                    }
+                else{
+                    if(option!=4) {
+                        return;
+                    }
+                }
+
+            } catch (Exception var3) {
+                System.out.println(var3.getMessage());
+                this.scanner.next();
+            }
+
+            System.out.println("*************************");
+        }
+    }
+
+    private void getAppointmentByDate() {
+        System.out.println("Enter any date in a format dd/mm/yyyy");
+
+    }
+
+    private void createAppointment() {
+        System.out.println("Enter id of a doctor");
+        int doc_id = scanner.nextInt();
+        System.out.println("Enter id of a patient");
+        int pat_id = scanner.nextInt();
+        System.out.println("Please enter the date (dd/mm/yyyy)");
+        String date = scanner.next();
+        System.out.println("Please enter room number");
+        int room = scanner.nextInt();
+        System.out.println("Please enter bill for an appointment");
+        int bill = scanner.nextInt();
+
+        String response = appController.createAppointment(doc_id, pat_id, date, room, bill);
+        System.out.println(response);
+    }
+
+    private void getAppointmentById() {
+        System.out.println("Please enter id of an appointment");
+
+        int app_id = scanner.nextInt();
+        Appointment appointment= appController.getAppointment(app_id);
+        String response = (appointment == null ? "Doctor was not found!" : appointment.toString());
+        System.out.println(response);
+    }
+
+    private void getAllAppointments() {
+        String response = appController.getAllAppointments();
+        System.out.println(response);
+    }
 
 
 }
