@@ -1,5 +1,3 @@
-# endtermProject
-
 Project name: "Healthcare".
 
 Enteties are main classes with variables that we will store  and retrieve from database. 
