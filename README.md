@@ -1,6 +1,6 @@
-Project name: "Healthcare".
+Project name: "Virtual Healthcare System".
 
-Enteties are main classes with variables that we will store  and retrieve from database. 
+Entities are main classes with variables that we will store  and retrieve from database. 
 In our project we have 3 entities : Doctor, Patient, and Appointment.
 
 Interface Repository are interface that we used in order to override our construct. 
